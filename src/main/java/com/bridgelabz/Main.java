@@ -7,5 +7,6 @@ public class Main {
         System.out.println("Wellcome to Address Book program.");
         AddressBook storeValue = new AddressBook("john", "kennedy", "Gauhati", "Assam", "xyz14@gmail.in", 78325, 100);
         storeValue.Display();
+        storeValue.add();
     }
 }
