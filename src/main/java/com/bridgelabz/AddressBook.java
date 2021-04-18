@@ -146,7 +146,11 @@ public class AddressBook {
     }
     /**
      * @mathod edit() perform edit operation in existing Contact of address book.
+<<<<<<< HEAD
      * return the list after editing with new edited value.
+=======
+     *return the list after editing with new edited value. 
+>>>>>>> 5093cf104c6e41b675afef38e3bbd0166a85b48f
      */
     public void edit() {
         System.out.println("Enter your First name:");
