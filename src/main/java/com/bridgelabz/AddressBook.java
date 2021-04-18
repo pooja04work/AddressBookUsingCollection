@@ -146,6 +146,7 @@ public class AddressBook {
     }
     /**
      * @mathod edit() perform edit operation in existing Contact of address book.
+     *return the list after editing with new edited value. 
      */
     public void edit() {
         System.out.println("Enter your First name:");
