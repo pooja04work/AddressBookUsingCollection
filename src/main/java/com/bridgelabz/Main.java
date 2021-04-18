@@ -1,6 +1,6 @@
 package com.bridgelabz;
 
-import com.bridgelabz.com.bridgelabz.com.bridgelabz.AddressBook;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -8,5 +8,8 @@ public class Main {
         AddressBook storeValue = new AddressBook("john", "kennedy", "Gauhati", "Assam", "xyz14@gmail.in", 78325, 100);
         storeValue.Display();
         storeValue.add();
+        storeValue.edit();
+        List values = storeValue.list;
+        System.out.println("List after edit: " + values);
     }
 }
