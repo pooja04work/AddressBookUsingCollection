@@ -11,5 +11,8 @@ public class Main {
         storeValue.edit();
         List values = storeValue.list;
         System.out.println("List after edit: " + values);
+        storeValue.delete();
+        List valuesAfterDelete = storeValue.list;
+        System.out.println("List After Deletion: " + valuesAfterDelete);
     }
 }
