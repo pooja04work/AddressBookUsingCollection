@@ -146,6 +146,7 @@ public class AddressBook {
     }
     /**
      * @mathod edit() perform edit operation in existing Contact of address book.
+     * return the list after editing with new edited value.
      */
     public void edit() {
         System.out.println("Enter your First name:");
@@ -193,6 +194,22 @@ public class AddressBook {
             }
         }
 
+    }
+    /**
+     * @mathod delete() deleted a person detail from the Addressbook using Name
+     * @return list after deleting
+     */
+    public void delete() {
+        System.out.println("Enter your First name:");
+        String fname = scanner.next();
+        Iterator iterator = list.iterator();
+        while (iterator.hasNext()) {
+            AddressBook person = (AddressBook) iterator.next();
+
+            if (fname.equals(person.getFirstName())) {
+                list.remove(person);
+            }
+        }
     }
 
 }
