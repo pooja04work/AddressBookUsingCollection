@@ -109,7 +109,9 @@ public class AddressBook {
      * @return list contain all the details of the persons newly added.
      */
     public void add() {
-        System.out.println("Add 2 new Contact to ADDRESS BOOK:------");
+        System.out.println("Add new Contact to ADDRESS BOOK:------");
+        System.out.println("enter the number of people you want to add in addressbook");
+        int numberOfUser = scanner.nextInt();
         for (int i = 0; i < 2; i++) {
             AddressBook person = new AddressBook();
             System.out.println("First Name: ");
