@@ -142,4 +142,13 @@ public class AddressBook {
             }
         }
     }
+    public void searchByCityOrState() {
+        System.out.println("All the people belongs to City = kokrajhar");
+        for (int index = 0; index <list.size(); index++) {
+            if (list.get(index).getCity().equals("kokrajhar")) {
+                System.out.println(list.get(index));
+            }
+        }
+
+    }
 }

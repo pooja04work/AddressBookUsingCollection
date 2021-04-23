@@ -14,7 +14,7 @@ public class Main {
         int switchValue = 1;
         while(switchValue != 0) {
             System.out.println("Select a Option: ");
-            System.out.println("1. New AddressBook\n    2. add on exisiting Address Book\n  3. get the contact detail\n 4. edit contact detail\n    5. delete contact details\n 6. exit" );
+            System.out.println("1.New AddressBook\n2.add on exisiting Address Book\n3.get the contact detail\n4.edit contact detail\n5.delete contact details\n6.search contact by city\n7.exit" );
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -34,7 +34,10 @@ public class Main {
                     addressBook.delete();
                     break;
                 case 6:
-                    System.out.println("thaks! visit again!!");
+                    addressBook.searchByCityOrState();
+                    break;
+                case 7:
+                    System.out.println("Thank you! visit again.");
                     switchValue = 0;
             }
         }
