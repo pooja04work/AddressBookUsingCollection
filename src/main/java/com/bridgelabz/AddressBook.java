@@ -1,9 +1,7 @@
 package com.bridgelabz;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AddressBook {
     Scanner scanner = new Scanner(System.in);
@@ -34,9 +32,11 @@ public class AddressBook {
 
         for (int i = 0; i < numberOfUser; i++) {
             ContactPerson person = new ContactPerson();
+
             System.out.println("First Name: ");
             String firstName = scanner.next();
             person.setFirstName(firstName);
+
 
             System.out.println("Last Name: ");
             String lastName = scanner.next();
@@ -143,6 +143,11 @@ public class AddressBook {
         }
     }
 
+    /**
+     * @method searchByCityorState search people by there city
+     * @ver count no p people available in a city
+     */
+
     public void searchByCityOrState() {
         int count =0;
         System.out.println("All the people belongs to City = kokrajhar");
@@ -155,8 +160,24 @@ public class AddressBook {
         System.out.println("number of contact person is : "+ count + "where city = kokrajhar");
     }
 
-//    public void sortByNameAlpha() {
-//    	List result = list.stream().sorted((o1, o2)->o1.getFirstName().getValue().compareTo(o2.getFirstName().getValue())).collect(Collectors.toList());
-//    }
+    /**
+     * @method store the first name alphabatically in assending order
+     * using streamAPI
+     */
 
+    public void sortByNameAlpha(){
+        System.out.println("Available adressbooks are" + addressBookManager.addressbook.keySet());
+        List<ContactPerson> sortedList = list.stream()
+                                        .sorted((object1, object2) -> object1.getFirstName()
+                                        .compareTo(object2.getFirstName()))
+                                        .collect(Collectors.toList());
+        System.out.println("Sorted List(sort the first name alphabatically): " + sortedList);
+    }
+    public void sortByzip(){
+        System.out.println("Available adressbooks are" + addressBookManager.addressbook.keySet());
+        List<ContactPerson> sortedList = list.stream()
+                                        .sorted(Comparator.comparingInt(ContactPerson::getZip))
+                                        .collect(Collectors.toList());
+        sortedList.forEach(System.out::println);
+    }
 }

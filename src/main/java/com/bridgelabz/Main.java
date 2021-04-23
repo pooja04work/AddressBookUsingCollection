@@ -17,8 +17,8 @@ public class Main {
             System.out.println("Select a Option: ");
             System.out.println("1.New AddressBook\n2.add on exisiting Address Book\n"
                     + "3.get the contact detail\n4.edit contact detail\n"
-                    + "5.delete contact details\n 6.search contact by city\n"
-                    + "8.exit" );
+                    + "5.delete contact details\n6.search contact by city\n"
+                    + "\"7.sort by name.\n8.sort by zip\n9.exit" );
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -47,12 +47,14 @@ public class Main {
                     addressBook.searchByCityOrState();
                     break;
 
-//                case 7:
-//                	addressBook.viewPersonByCity();
-//                	break;
-//                "7.stor and retrive according city name.\n
+                case 7:
+                	addressBook.sortByNameAlpha();
+                	break;
 
                 case 8:
+                    addressBook.sortByzip();
+                    break;
+                case 9:
                     System.out.println("Thank U! visit again.");
                     switchValue = 0;
             }
