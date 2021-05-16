@@ -3,6 +3,7 @@ package com.bridgelabz;
 import java.util.*;
 
 public class AddressBookManager {
+    FileIOService fileIOService = new FileIOService();
     Map<String, LinkedList> addressbook = new HashMap<String, LinkedList>();
     Scanner scanner = new Scanner(System.in);
 
@@ -26,9 +27,24 @@ public class AddressBookManager {
         return true;
     }
 
-    public List getContactByAddressBook (String addressBookName){
+    public List<ContactPerson> getContactByAddressBook (String addressBookName){
         List contacts = addressbook.get(addressBookName);
         contacts.forEach(contact->System.out.println(contact));
         return contacts;
+    }
+    public  ContactPerson searchPerson(String addressBookName, String firstName){
+        List<ContactPerson> contactByAddressBook = getContactByAddressBook(addressBookName);
+        if (contactByAddressBook.size() == 0){
+            return null;
+        }
+        Optional<ContactPerson> person1 = contactByAddressBook.stream().filter(person -> person.getFirstName().equals(firstName)).findAny();
+        if (person1.isEmpty()){
+            return null;
+        }
+        return person1.get();
+    }
+
+    public void writeDataInFile(){
+        addressbook.forEach((addressBookName,contact)-> fileIOService.writeData(addressBookName, contact));
     }
 }

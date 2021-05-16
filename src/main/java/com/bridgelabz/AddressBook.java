@@ -4,9 +4,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AddressBook {
+    public enum IOService{CONSOLE_IO, FILE_IO}
+
     Scanner scanner = new Scanner(System.in);
     List<ContactPerson> list = new ArrayList();
     AddressBookManager addressBookManager = new AddressBookManager();
+    FileIOService fileIOService = new FileIOService();
 
     public void createAddressbook() {
         addressBookManager.CreateAddressbook();
@@ -29,43 +32,54 @@ public class AddressBook {
         String addressBookName = scanner.next();
         System.out.println("enter the number of people you want to add in addressbook: ");
         int numberOfUser = Integer.valueOf(scanner.next());
+            try {
+                for (int i = 0; i < numberOfUser; i++) {
+                    ContactPerson person = new ContactPerson();
 
-        for (int i = 0; i < numberOfUser; i++) {
-            ContactPerson person = new ContactPerson();
+                    System.out.println("First Name: ");
+                    String firstName = scanner.next();
+                    while (addressBookManager.searchPerson(addressBookName, firstName) != null) {
+                        System.out.println("Person already present!\n try to insert a new person in the addressbook!");
+                        System.out.println("First Name: ");
+                        firstName = scanner.next();
+                    }
+                    person.setFirstName(firstName);
 
-            System.out.println("First Name: ");
-            String firstName = scanner.next();
-            person.setFirstName(firstName);
 
+                    System.out.println("Last Name: ");
+                    String lastName = scanner.next();
+                    person.setLastName(lastName);
 
-            System.out.println("Last Name: ");
-            String lastName = scanner.next();
-            person.setLastName(lastName);
+                    System.out.println("City: ");
+                    String city = scanner.next();
+                    person.setCity(city);
 
-            System.out.println("City: ");
-            String city = scanner.next();
-            person.setCity(city);
+                    System.out.println("State: ");
+                    String state = scanner.next();
+                    person.setState(state);
 
-            System.out.println("State: ");
-            String state = scanner.next();
-            person.setState(state);
+                    System.out.println("EmailID: ");
+                    String email = scanner.next();
+                    person.setEmail(email);
 
-            System.out.println("EmailID: ");
-            String email = scanner.next();
-            person.setEmail(email);
+                    System.out.println("Zip: ");
+                    int zip = scanner.nextInt();
+                    person.setZip(zip);
 
-            System.out.println("Zip: ");
-            int zip = scanner.nextInt();
-            person.setZip(zip);
+                    System.out.println("PhoneNumber: ");
+                    int phoneNo = scanner.nextInt();
+                    person.setPhoneNo(phoneNo);
 
-            System.out.println("PhoneNumber: ");
-            int phoneNo = scanner.nextInt();
-            person.setPhoneNo(phoneNo);
-
-            addressBookManager.addContact(addressBookName, person);
-            list.add(person);
-        }
+                    addressBookManager.addContact(addressBookName, person);
+                    list.add(person);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         return list;
+
+        //String file = FileIOService.file;
+        //fileIOService.writeData(file, list);
     }
     /**
      * @mathod edit() perform edit operation in existing Contact of address book.
@@ -173,11 +187,24 @@ public class AddressBook {
                                         .collect(Collectors.toList());
         System.out.println("Sorted List(sort the first name alphabatically): " + sortedList);
     }
+
+    /**
+     * @method store by zip
+     * using streamAPI
+     */
+
     public void sortByzip(){
         System.out.println("Available adressbooks are" + addressBookManager.addressbook.keySet());
         List<ContactPerson> sortedList = list.stream()
                                         .sorted(Comparator.comparingInt(ContactPerson::getZip))
                                         .collect(Collectors.toList());
         sortedList.forEach(System.out::println);
+    }
+
+    public void writeContactPersonDetail(IOService ioService) {
+        if (ioService.equals(IOService.CONSOLE_IO))
+            System.out.println("\nWriting Contact Person Detail to Console\n" + list);
+        else if (ioService.equals(IOService.FILE_IO))
+            addressBookManager.writeDataInFile();
     }
 }
