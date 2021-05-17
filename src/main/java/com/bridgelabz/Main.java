@@ -1,17 +1,18 @@
 package com.bridgelabz;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         System.out.println("Wellcome to Address Book program.");
         ContactPerson storeValue = new ContactPerson("john", "kennedy", "Gauhati", "Assam", "xyz14@gmail.in", 78325, 100);
         Scanner scanner = new Scanner(System.in);
         AddressBook addressBook = new AddressBook();
-        //AddressBookManager addressBookManager = new AddressBookManager();
+        AddressBookManager addressBookManager = new AddressBookManager();
         FileIOService fileIOService = new FileIOService();
         CSVService csvService = new CSVService();
+        JSONService jsonService = new JSONService();
         storeValue.Display();
 
         int switchValue = 1;
@@ -21,7 +22,7 @@ public class Main {
                     + "3.get the contact detail\n4.edit contact detail\n"
                     + "5.delete contact details\n6.search contact by city\n"
                     + "\"7.sort by name.\n8.sort by zip\n9.exit\n10.Write Data To Text File\n"
-                    + "11.Read Data From TextFile\n12.Write Data To CSV File" );
+                    + "11.Read Data From TextFile\n12.Read Data From JSON File\n13.Read Data From CSV File" );
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -64,7 +65,7 @@ public class Main {
                     break;
                 case 10:
                     try {
-                        System.out.println("printing in text file");
+                        System.out.println("printing in text file, csv file and Json file");
                         addressBook.writeContactPersonDetail(AddressBook.IOService.FILE_IO);
                     }
                     catch (Exception e){
@@ -76,13 +77,12 @@ public class Main {
                     fileIOService.readData();
                     break;
                 case 12:
-                    try {
-                        System.out.println("printing in CSV file");
-                        csvService.writeDataToCSV();
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                    }
+                    System.out.println("displayJsonfile: ");
+                    jsonService.readDataFromJson();
+                    break;
+                case 13:
+                    System.out.println("displayCSVfile: ");
+                    csvService.readDataFromCsv();
                     break;
 
             }

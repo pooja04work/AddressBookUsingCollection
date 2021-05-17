@@ -4,10 +4,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AddressBook {
+
     public enum IOService{CONSOLE_IO, FILE_IO}
 
     Scanner scanner = new Scanner(System.in);
-    List<ContactPerson> list = new ArrayList();
+    static List<ContactPerson> list = new ArrayList();
     AddressBookManager addressBookManager = new AddressBookManager();
     FileIOService fileIOService = new FileIOService();
 
@@ -206,5 +207,7 @@ public class AddressBook {
             System.out.println("\nWriting Contact Person Detail to Console\n" + list);
         else if (ioService.equals(IOService.FILE_IO))
             addressBookManager.writeDataInFile();
+            addressBookManager.writeDataInJSONFile();
+            addressBookManager.writeDataInCSVFile();
     }
 }

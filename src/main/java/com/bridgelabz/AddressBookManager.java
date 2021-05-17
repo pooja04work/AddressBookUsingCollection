@@ -1,15 +1,17 @@
 package com.bridgelabz;
 
+import java.io.IOException;
 import java.util.*;
 
 public class AddressBookManager {
     FileIOService fileIOService = new FileIOService();
+    CSVService csvService = new CSVService();
     Map<String, LinkedList> addressbook = new HashMap<String, LinkedList>();
     Scanner scanner = new Scanner(System.in);
 
 
     public void CreateAddressbook() {
-        System.out.println("Enter the name of a addressbook: " );
+        System.out.println("Enter the name of a addressbook: ");
         String addressBookName = scanner.next();
         if (addressbook.containsKey(addressBookName))
             System.out.println("addressbook is already present");
@@ -17,8 +19,9 @@ public class AddressBookManager {
             addressbook.put(addressBookName, new LinkedList<ContactPerson>());
         System.out.println(addressbook.keySet());
     }
-    public  boolean addContact(String addressBookName, ContactPerson contactPerson ) {
-        if(addressbook.containsKey(addressBookName) == false){
+
+    public boolean addContact(String addressBookName, ContactPerson contactPerson) {
+        if (addressbook.containsKey(addressBookName) == false) {
             throw new RuntimeException("Addressbook not present");
         }
         System.out.println("Addressbook name: " + addressBookName);
@@ -27,24 +30,39 @@ public class AddressBookManager {
         return true;
     }
 
-    public List<ContactPerson> getContactByAddressBook (String addressBookName){
+    public List<ContactPerson> getContactByAddressBook(String addressBookName) {
         List contacts = addressbook.get(addressBookName);
-        contacts.forEach(contact->System.out.println(contact));
+        contacts.forEach(contact -> System.out.println(contact));
         return contacts;
     }
-    public  ContactPerson searchPerson(String addressBookName, String firstName){
+
+    public ContactPerson searchPerson(String addressBookName, String firstName) {
         List<ContactPerson> contactByAddressBook = getContactByAddressBook(addressBookName);
-        if (contactByAddressBook.size() == 0){
+        if (contactByAddressBook.size() == 0) {
             return null;
         }
         Optional<ContactPerson> person1 = contactByAddressBook.stream().filter(person -> person.getFirstName().equals(firstName)).findAny();
-        if (person1.isEmpty()){
+        if (person1.isEmpty()) {
             return null;
         }
         return person1.get();
     }
 
-    public void writeDataInFile(){
-        addressbook.forEach((addressBookName,contact)-> fileIOService.writeData(addressBookName, contact));
+    public void writeDataInFile() {
+        addressbook.forEach((addressBookName, contact) -> fileIOService.writeData(addressBookName, contact));
+    }
+
+    public void writeDataInJSONFile() {
+        addressbook.forEach((addressBookName, contact) -> {
+            try {
+                JSONService.writeDataToJSon(addressBookName, contact);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void writeDataInCSVFile() {
+        addressbook.forEach((addressBookName, contact) ->CSVService.writeDataToCSV(addressBookName, contact));
     }
 }
